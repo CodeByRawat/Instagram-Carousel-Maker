@@ -10,7 +10,7 @@ export function LessonSlide({ slide, index, total }) {
       <div className="topRule" />
       <div className="ghostNumber">{slide?.ghostNumber || String(index + 1).padStart(2, '0')}</div>
 
-      <div style={{ flex: 1, padding: '0 64px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ flex: 1, padding: '40px 64px 60px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
         <div className="label">{slide?.lessonLabel || 'Lesson'}</div>
 
         <div className="sanskrit">{slide?.sanskrit || ''}</div>
@@ -19,7 +19,7 @@ export function LessonSlide({ slide, index, total }) {
           "
         </div>
 
-        <div style={{ marginTop: 34, maxWidth: 880, position: 'relative' }}>
+        <div style={{ marginTop: 44, maxWidth: 900, position: 'relative' }}>
           <div className="quote">
             {before}
             {match ? <em>{match}</em> : null}
@@ -31,7 +31,7 @@ export function LessonSlide({ slide, index, total }) {
         <div className="divider" />
 
         <div className="label">{slide?.applicationLabel || 'Why it matters'}</div>
-        <div className="application" style={{ marginTop: 12, maxWidth: 900 }}>
+        <div className="application" style={{ marginTop: 18, maxWidth: 900 }}>
           {renderRichText(applicationTokens)}
         </div>
       </div>
