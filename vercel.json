@@ -1,20 +1,6 @@
 {
-  "version": 2,
   "installCommand": "npm install && npm install --prefix web",
   "buildCommand": "npm run build --prefix web",
-  "builds": [
-    {
-      "src": "server/index.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["web/dist/**"]
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "server/index.js"
-    }
-  ]
+  "outputDirectory": "web/dist",
+  "framework": null
 }
