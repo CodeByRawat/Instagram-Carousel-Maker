@@ -102,3 +102,27 @@
   text-align: center;
   line-height: 1.4;
 }
+
+@media (max-width: 640px) {
+  .landing {
+    gap: 40px;
+    padding: 40px 20px;
+  }
+
+  .landingSubtitle {
+    font-size: 16px;
+  }
+
+  .platformCards {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .platformCard {
+    width: 100%;
+    max-width: 340px;
+    padding: 28px 24px;
+  }
+}

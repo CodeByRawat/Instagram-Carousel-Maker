@@ -150,7 +150,6 @@ function App() {
           <div className="panelTitle">Preview</div>
           <CarouselPreview
             carousel={carousel}
-            scale={0.65}
             SlideComponent={account?.id === 'dadly' ? DadlySlide : undefined}
           />
         </section>

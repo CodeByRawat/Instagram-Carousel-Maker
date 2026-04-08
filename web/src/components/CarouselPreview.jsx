@@ -1,13 +1,28 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Slide } from './Slide.jsx'
 import './CarouselPreview.css'
 
 const SLIDE_W = 1080
 const SLIDE_H = 1350
+const MAX_SCALE = 0.65
 
-export function CarouselPreview({ carousel, scale = 0.65, SlideComponent = Slide }) {
+export function CarouselPreview({ carousel, SlideComponent = Slide }) {
   const slides = Array.isArray(carousel?.slides) ? carousel.slides : []
   const [current, setCurrent] = useState(0)
+  const [scale, setScale] = useState(MAX_SCALE)
+  const wrapRef = useRef(null)
+
+  useEffect(() => {
+    const el = wrapRef.current
+    if (!el) return
+    const ro = new ResizeObserver(([entry]) => {
+      const available = entry.contentRect.width - 32 // 16px padding each side
+      const computed = Math.min(available / SLIDE_W, MAX_SCALE)
+      setScale(Math.max(computed, 0.2))
+    })
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
 
   const prev = () => setCurrent((i) => Math.max(0, i - 1))
   const next = () => setCurrent((i) => Math.min(slides.length - 1, i + 1))
@@ -16,7 +31,7 @@ export function CarouselPreview({ carousel, scale = 0.65, SlideComponent = Slide
   const frameH = SLIDE_H * scale
 
   return (
-    <div className="igPreviewWrap">
+    <div className="igPreviewWrap" ref={wrapRef}>
       {/* Slide frame — clips to one slide at a time */}
       <div className="igFrame" style={{ width: frameW, height: frameH }}>
 

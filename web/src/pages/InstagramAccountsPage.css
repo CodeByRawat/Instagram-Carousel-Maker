@@ -126,3 +126,40 @@
   color: var(--mid, #555);
   margin-top: 2px;
 }
+
+@media (max-width: 640px) {
+  .accountsPage {
+    gap: 36px;
+    padding: 40px 20px;
+  }
+
+  .accountsTitle {
+    letter-spacing: -1px;
+  }
+
+  .accountCards {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .accountCard {
+    width: 100%;
+    max-width: 340px;
+    padding: 24px 20px 22px;
+    flex-direction: row;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .accountInfo {
+    align-items: flex-start;
+  }
+
+  .accountAvatar {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+  }
+}
