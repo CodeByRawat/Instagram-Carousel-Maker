@@ -87,6 +87,17 @@
   border: 2.5px solid rgba(17, 17, 17, 0.15);
   background: rgba(237, 232, 224, 0.6);
   flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accountAvatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .accountInfo {

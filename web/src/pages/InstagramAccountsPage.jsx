@@ -1,4 +1,6 @@
 import './InstagramAccountsPage.css'
+import sofiaAvatar from '../assets/profile picture.png'
+import dadlyAvatar from '../assets/pagefordas logo.png'
 
 const ACCOUNTS = [
   {
@@ -7,6 +9,7 @@ const ACCOUNTS = [
     label: 'Sofia',
     handle: '@your_divine.sofia',
     desc: 'Wisdom & Spirituality',
+    avatar: sofiaAvatar,
   },
   {
     id: 'dadly',
@@ -14,6 +17,7 @@ const ACCOUNTS = [
     label: 'Dadly App',
     handle: '@dadly',
     desc: 'Fatherhood & Parenting',
+    avatar: dadlyAvatar,
   },
   {
     id: 'datawithsachin',
@@ -21,6 +25,7 @@ const ACCOUNTS = [
     label: 'DataWithSachin',
     handle: '@datawithsachin',
     desc: 'Data & Analytics',
+    avatar: null,
   },
 ]
 
@@ -44,7 +49,11 @@ export function InstagramAccountsPage({ onSelectAccount, onBack }) {
             className="accountCard"
             onClick={() => onSelectAccount(account)}
           >
-            <div className="accountAvatar" />
+            <div className="accountAvatar">
+              {account.avatar && (
+                <img src={account.avatar} alt={account.label} className="accountAvatarImg" />
+              )}
+            </div>
             <div className="accountInfo">
               <div className="accountLabel">{account.label}</div>
               <div className="accountHandle">{account.handle}</div>
