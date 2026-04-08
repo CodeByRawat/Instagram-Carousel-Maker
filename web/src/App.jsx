@@ -55,6 +55,8 @@ function App() {
         throw new Error(body?.error || 'Failed to generate carousel.')
       }
       const data = await res.json()
+      // Always keep the last (CTA) slide fixed
+      data.slides[data.slides.length - 1] = defaultCarousel.slides[defaultCarousel.slides.length - 1]
       setCarousel(data)
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Something went wrong.')

@@ -3,7 +3,7 @@ import { Slide } from './Slide.jsx'
 import './CarouselPreview.css'
 
 const SLIDE_W = 1080
-const SLIDE_H = 1080
+const SLIDE_H = 1350
 
 export function CarouselPreview({ carousel, scale = 0.65 }) {
   const slides = Array.isArray(carousel?.slides) ? carousel.slides : []

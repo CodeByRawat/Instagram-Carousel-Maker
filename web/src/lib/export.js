@@ -25,7 +25,7 @@ export async function exportCarouselZip({ theme, slideNodes }) {
       pixelRatio: 1,
       cacheBust: true,
       width: 1080,
-      height: 1080,
+      height: 1350,
       style: {
         transform: 'none',
       },
