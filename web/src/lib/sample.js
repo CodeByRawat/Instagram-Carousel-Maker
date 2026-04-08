@@ -1,0 +1,80 @@
+export const defaultCarousel = {
+  theme: 'stress at work',
+  slides: [
+    {
+      type: 'hook',
+      roleTag: 'AI Automation & Newsletter Strategist',
+      headline: 'Your *mind* isn\'t tired.\nYour attention is.',
+      subtext: 'The Gita\'s answer to modern burnout is simple — stop feeding the noise.',
+      appScreenKey: 'app1',
+    },
+    {
+      type: 'lesson',
+      lessonLabel: 'Lesson 01 · Attention',
+      ghostNumber: '02',
+      sanskrit: 'उद्धरेदात्मनाऽऽत्मानं नात्मानमवसादयेत्।',
+      quote: 'You rise by the mind you train — not the chaos you obey.',
+      highlightWord: 'train',
+      reference: '— Bhagavad Gita · Paraphrase',
+      applicationLabel: 'Why it matters',
+      applicationBody:
+        'If you keep reacting, you keep leaking energy. **Attention is your real currency.** Decide what gets it — before the world does.',
+    },
+    {
+      type: 'lesson',
+      lessonLabel: 'Lesson 02 · Duty',
+      ghostNumber: '03',
+      sanskrit: 'कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।',
+      quote: 'Focus on the work. Let the results arrive in their own time.',
+      highlightWord: 'work',
+      reference: '— Bhagavad Gita · Chapter 2, Verse 47',
+      applicationLabel: 'Why it matters',
+      applicationBody:
+        'Burnout often comes from trying to control outcomes. **Do your part fully, then release the rest.** This is how effort becomes peace.',
+    },
+    {
+      type: 'lesson',
+      lessonLabel: 'Lesson 03 · Equanimity',
+      ghostNumber: '04',
+      sanskrit: 'समदुःखसुखः स्वस्थः समलोष्टाश्मकाञ्चनः।',
+      quote: 'Treat pain and pleasure the same — that\'s where *peace* lives.',
+      highlightWord: 'peace',
+      reference: '— Bhagavad Gita · Chapter 14, Verse 24',
+      applicationLabel: 'Why it matters',
+      applicationBody:
+        'When you stop chasing highs and resisting lows, the mind settles. **Equanimity isn\'t indifference — it\'s freedom.** This is the Gita\'s antidote to emotional burnout.',
+    },
+    {
+      type: 'lesson',
+      lessonLabel: 'Lesson 04 · Detachment',
+      ghostNumber: '05',
+      sanskrit: 'योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय।',
+      quote: 'Work with steadiness — not with obsession.',
+      highlightWord: 'steadiness',
+      reference: '— Bhagavad Gita · Paraphrase',
+      applicationLabel: 'Why it matters',
+      applicationBody:
+        'When your identity is tied to performance, every day becomes a test. **Detach from the ego, attach to practice.** You\'ll feel lighter immediately.',
+    },
+    {
+      type: 'cta',
+      eyebrow: 'Follow for grounded wisdom',
+      headline: 'Save this.\nPractice it tomorrow.',
+      subtitle: 'If you want calm + clarity, start with one verse a day.',
+      pillars: [
+        'Daily quotes from Gita, Upanishads, and Vedas',
+        'Deep meaning + modern-life explanations',
+        'Topic-based personalization (Karma, Devotion, etc.)',
+        'Daily quote notifications',
+        'Home screen widget for quick wisdom access',
+        'Bookmark, copy, and share quotes',
+        'Journal your thoughts & reflections',
+        'Clean, minimal spiritual UI experience',
+      ],
+      handle: 'your_divine.sofia',
+      role: 'AI Automation & Newsletter Strategist',
+      appScreenKey: 'app6',
+    },
+  ],
+}
+

@@ -1,0 +1,48 @@
+:root {
+  --cream: #ede8e0;
+  --cream2: #e5ded4;
+  --black: #111111;
+  --red: #c0392b;
+  --amber: #d4922a;
+  --mid: #555555;
+  --muted: #999999;
+  --white: #ffffff;
+
+  --shadow: rgba(17, 17, 17, 0.12) 0 18px 38px -18px;
+
+  --font-sans: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-quote: "Playfair Display", Georgia, serif;
+  --font-dev: "Noto Serif Devanagari", serif;
+
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--black);
+  background: var(--cream);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(
+      900px 600px at 70% 20%,
+      rgba(196, 57, 43, 0.06),
+      transparent 60%
+    ),
+    var(--cream);
+}
+
+#root {
+  min-height: 100svh;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}

@@ -1,0 +1,219 @@
+.app {
+  padding: 18px 18px 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 14px 14px 18px;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+.platformTabs {
+  display: flex;
+  gap: 8px;
+  background: rgba(17, 17, 17, 0.06);
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.platformTab {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  color: var(--mid);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.platformTab img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+.platformTab.active {
+  background: var(--white, #fff);
+  color: var(--black);
+  box-shadow: 0 1px 4px rgba(17, 17, 17, 0.12);
+}
+
+.platformTab:not(.active):hover {
+  background: rgba(17, 17, 17, 0.06);
+  color: var(--black);
+}
+
+.backBtn {
+  background: none;
+  border: 1px solid rgba(17, 17, 17, 0.14);
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mid, #555);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  white-space: nowrap;
+}
+
+.backBtn:hover {
+  background: rgba(17, 17, 17, 0.06);
+  color: var(--black, #111);
+}
+
+.topbarLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topbarBack {
+  position: static;
+  font-size: 13px;
+}
+
+.topbarPlatformIcon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.brand {
+  font-weight: 900;
+  letter-spacing: -1.2px;
+  font-size: 22px;
+  line-height: 1.05;
+}
+
+.subtitle {
+  margin-top: 6px;
+  color: var(--mid);
+  font-size: 13px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field > span {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.field input {
+  width: 360px;
+  max-width: 70vw;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(17, 17, 17, 0.16);
+  background: rgba(255, 255, 255, 0.7);
+  outline: none;
+}
+
+.field input:focus {
+  border-color: rgba(192, 57, 43, 0.55);
+  box-shadow: 0 0 0 4px rgba(192, 57, 43, 0.12);
+}
+
+.btn {
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(17, 17, 17, 0.16);
+  background: var(--black);
+  color: var(--cream);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn.secondary {
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--black);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.error {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(192, 57, 43, 0.28);
+  background: rgba(192, 57, 43, 0.08);
+  color: var(--black);
+  font-size: 14px;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-top: 14px;
+  align-items: start;
+}
+
+.panel {
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.35);
+  padding: 12px;
+  overflow: hidden;
+}
+
+.panelTitle {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 2px 2px 10px;
+}
+
+
+.exportStage {
+  position: absolute;
+  left: -99999px;
+  top: 0;
+  width: 1080px;
+}
+
+@media (max-width: 1100px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+  .field input {
+    width: min(520px, 70vw);
+  }
+}

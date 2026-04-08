@@ -1,0 +1,26 @@
+{
+  "name": "carousel-maker-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently -n server,web -c blue,green \"node server/index.js\" \"npm run dev --prefix web\"",
+    "build": "npm run build --prefix web",
+    "start": "node server/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "openai": "^6.33.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.14",
+    "typescript": "^6.0.2"
+  }
+}

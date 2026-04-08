@@ -1,0 +1,117 @@
+.accountsPage {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  padding: 48px 24px;
+  position: relative;
+}
+
+.accountsPage .backBtn {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+}
+
+.accountsHero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.accountsBadge {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(225, 48, 108, 0.35);
+  background: rgba(225, 48, 108, 0.07);
+  color: #e1306c;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.accountsTitle {
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1;
+  color: var(--black, #111);
+  margin: 0;
+}
+
+.accountsSubtitle {
+  font-size: 16px;
+  color: var(--mid, #555);
+  margin: 0;
+}
+
+.accountCards {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.accountCard {
+  width: 220px;
+  padding: 32px 20px 28px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(17, 17, 17, 0.12);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 2px 12px rgba(17, 17, 17, 0.06);
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+
+.accountCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(17, 17, 17, 0.12);
+  border-color: #e1306c;
+}
+
+.accountAvatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(17, 17, 17, 0.15);
+  background: rgba(237, 232, 224, 0.6);
+  flex-shrink: 0;
+}
+
+.accountInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.accountLabel {
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: -0.3px;
+  color: var(--black, #111);
+}
+
+.accountHandle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e1306c;
+  letter-spacing: 0.2px;
+}
+
+.accountDesc {
+  font-size: 12px;
+  color: var(--mid, #555);
+  margin-top: 2px;
+}

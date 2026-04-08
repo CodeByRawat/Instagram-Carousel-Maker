@@ -1,0 +1,104 @@
+.landing {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  padding: 48px 24px;
+}
+
+.landingHero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.landingBadge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(192, 57, 43, 0.3);
+  background: rgba(192, 57, 43, 0.07);
+  color: var(--red, #c0392b);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.landingTitle {
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 900;
+  letter-spacing: -3px;
+  line-height: 0.95;
+  color: var(--black, #111);
+  margin: 0;
+}
+
+.landingSubtitle {
+  font-size: 18px;
+  color: var(--mid, #555);
+  max-width: 440px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.platformCards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.platformCard {
+  width: 260px;
+  padding: 36px 28px 32px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(17, 17, 17, 0.12);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  box-shadow: 0 2px 12px rgba(17, 17, 17, 0.06);
+}
+
+.platformCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(17, 17, 17, 0.12);
+}
+
+.platformCard.instagram:hover {
+  border-color: #e1306c;
+}
+
+.platformCard.linkedin:hover {
+  border-color: #0077b5;
+}
+
+.platformCardIcon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 14px;
+}
+
+.platformCardName {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--black, #111);
+}
+
+.platformCardDesc {
+  font-size: 13px;
+  color: var(--mid, #555);
+  text-align: center;
+  line-height: 1.4;
+}

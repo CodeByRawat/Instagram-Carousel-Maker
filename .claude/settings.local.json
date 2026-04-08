@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --input-type=module)",
+      "Bash(node -e \"require\\('/Users/sachinrawat/Desktop/Carousel maker  project/web/src/lib/sample.js'\\)\")",
+      "Bash(python3 -c ':*)",
+      "Bash(echo \"Exit: $?\")"
+    ]
+  }
+}
