@@ -22,7 +22,7 @@ export async function exportCarouselZip({ theme, slideNodes }) {
   for (let i = 0; i < slideNodes.length; i++) {
     const node = slideNodes[i]
     const dataUrl = await htmlToImage.toPng(node, {
-      pixelRatio: 1,
+      pixelRatio: 2,
       cacheBust: true,
       width: 1080,
       height: 1350,
