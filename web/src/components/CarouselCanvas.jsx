@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Slide } from './Slide.jsx'
 
-export function CarouselCanvas({ carousel, scale = 1, slideRefSetter }) {
+export function CarouselCanvas({ carousel, scale = 1, slideRefSetter, SlideComponent = Slide }) {
   const slides = Array.isArray(carousel?.slides) ? carousel.slides : []
 
   return (
@@ -14,7 +14,7 @@ export function CarouselCanvas({ carousel, scale = 1, slideRefSetter }) {
       >
         {slides.map((slide, idx) => (
           <Fragment key={idx}>
-            <Slide
+            <SlideComponent
               slide={slide}
               index={idx}
               total={slides.length}

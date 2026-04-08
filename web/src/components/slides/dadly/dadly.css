@@ -1,0 +1,265 @@
+/* ── Dadly Brand Variables ─────────────────────────────────── */
+.dadlySlide {
+  --dn:  #FFEDCE;                  /* warm cream bg      */
+  --dn2: #FFE0B8;                  /* peach bg mid       */
+  --dg:  #FF3737;                  /* vibrant red        */
+  --dg2: #FF8383;                  /* soft coral         */
+  --dpeach: #FFC193;               /* warm peach         */
+  --dc:  #2a1810;                  /* dark warm brown    */
+  --dm:  rgba(42, 24, 16, 0.55);   /* muted text         */
+  --dw:  #1a1008;                  /* near black         */
+
+  width: 1080px;
+  height: 1350px;
+  background: var(--dn);
+  color: var(--dc);
+  position: relative;
+  overflow: hidden;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  box-shadow: rgba(17,17,17,0.18) 0 18px 38px -18px;
+}
+
+/* ── Gold top bar ──────────────────────────────────────────── */
+.dadlyTopBar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--dg), var(--dg2));
+}
+
+/* ── Footer bar ────────────────────────────────────────────── */
+.dadlyFooter {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 100px;
+  background: var(--dpeach);
+  border-top: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 52px;
+}
+
+.dadlyHandle {
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.3px;
+  color: var(--dw);
+}
+
+.dadlyDots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dadlyDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(42, 24, 16, 0.2);
+}
+
+.dadlyDot.active {
+  background: var(--dg);
+}
+
+/* ── Hook Slide ────────────────────────────────────────────── */
+.dadlyHook {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 72px 140px;
+  height: 100%;
+}
+
+.dadlyEyebrow {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--dg);
+  margin-bottom: 28px;
+}
+
+.dadlyHookHeadline {
+  font-size: 88px;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -3px;
+  color: var(--dc);
+}
+
+.dadlyHookHeadline em {
+  font-style: normal;
+  color: var(--dg);
+}
+
+.dadlyHookSub {
+  margin-top: 32px;
+  font-size: 28px;
+  line-height: 1.4;
+  color: var(--dm);
+  max-width: 760px;
+}
+
+.dadlyTag {
+  position: absolute;
+  top: 32px;
+  right: 52px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(42, 24, 16, 0.3);
+}
+
+/* ── Lesson Slide ──────────────────────────────────────────── */
+.dadlyLesson {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 70px 72px 130px;
+  height: 100%;
+}
+
+.dadlyLessonLabel {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--dg);
+}
+
+.dadlyLessonHeadline {
+  font-size: 62px;
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  color: var(--dc);
+  margin-top: 20px;
+  max-width: 900px;
+}
+
+.dadlyLessonHeadline em {
+  font-style: normal;
+  color: var(--dg);
+}
+
+.dadlyDivider {
+  width: 60px;
+  height: 3px;
+  background: var(--dg);
+  margin: 32px auto;
+  border-radius: 2px;
+}
+
+.dadlyLessonBody {
+  font-size: 27px;
+  line-height: 1.55;
+  color: var(--dm);
+  max-width: 900px;
+  text-align: center;
+}
+
+.dadlyLessonBody strong {
+  color: var(--dc);
+  font-weight: 800;
+}
+
+.dadlyGhostNum {
+  position: absolute;
+  right: 52px;
+  top: 60px;
+  font-size: 220px;
+  font-weight: 900;
+  letter-spacing: -8px;
+  color: rgba(255, 55, 55, 0.06);
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ── CTA Slide ─────────────────────────────────────────────── */
+.dadlyCta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 72px 140px;
+  height: 100%;
+  gap: 0;
+}
+
+.dadlyCtaBadge {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--dg);
+  margin-bottom: 20px;
+}
+
+.dadlyCtaHeadline {
+  font-size: 78px;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -3px;
+  color: var(--dc);
+  margin-bottom: 24px;
+}
+
+.dadlyCtaSub {
+  font-size: 26px;
+  line-height: 1.45;
+  color: var(--dm);
+  max-width: 780px;
+  margin-bottom: 48px;
+}
+
+.dadlyCtaFeatures {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 700px;
+  margin-bottom: 52px;
+}
+
+.dadlyCtaFeatureRow {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.dadlyCtaNum {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--dg);
+  flex-shrink: 0;
+  min-width: 24px;
+}
+
+.dadlyCtaFeatureText {
+  font-size: 22px;
+  color: var(--dm);
+  line-height: 1.35;
+  text-align: left;
+}
+
+.dadlyCtaBtn {
+  background: var(--dg);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.3px;
+  padding: 20px 52px;
+  border-radius: 999px;
+  border: none;
+  cursor: default;
+}

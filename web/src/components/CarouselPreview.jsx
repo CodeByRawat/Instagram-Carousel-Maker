@@ -5,7 +5,7 @@ import './CarouselPreview.css'
 const SLIDE_W = 1080
 const SLIDE_H = 1350
 
-export function CarouselPreview({ carousel, scale = 0.65 }) {
+export function CarouselPreview({ carousel, scale = 0.65, SlideComponent = Slide }) {
   const slides = Array.isArray(carousel?.slides) ? carousel.slides : []
   const [current, setCurrent] = useState(0)
 
@@ -28,7 +28,7 @@ export function CarouselPreview({ carousel, scale = 0.65 }) {
           >
             {slides.map((slide, idx) => (
               <div key={idx} style={{ width: SLIDE_W, height: SLIDE_H, flexShrink: 0 }}>
-                <Slide slide={slide} index={idx} total={slides.length} />
+                <SlideComponent slide={slide} index={idx} total={slides.length} />
               </div>
             ))}
           </div>

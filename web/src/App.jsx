@@ -8,6 +8,8 @@ import instagramIcon from './assets/instagram.png'
 import linkedinIcon from './assets/linkedin.png'
 import { LandingPage } from './pages/LandingPage.jsx'
 import { InstagramAccountsPage } from './pages/InstagramAccountsPage.jsx'
+import { DadlySlide } from './components/DadlySlide.jsx'
+import { defaultDadlyCarousel } from './lib/sample-dadly.js'
 
 // page: 'landing' | 'instagram-accounts' | 'main'
 function App() {
@@ -37,6 +39,8 @@ function App() {
 
   function handleSelectAccount(acc) {
     setAccount(acc)
+    if (acc.id === 'dadly') setCarousel(defaultDadlyCarousel)
+    else setCarousel(defaultCarousel)
     setPage('main')
   }
 
@@ -44,7 +48,11 @@ function App() {
     setError('')
     setIsGenerating(true)
     try {
-      const endpoint = platform === 'linkedin' ? '/api/generate-linkedin' : '/api/generate'
+      const endpoint = platform === 'linkedin'
+        ? '/api/generate-linkedin'
+        : account?.id === 'dadly'
+        ? '/api/generate-dadly'
+        : '/api/generate'
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -55,8 +63,11 @@ function App() {
         throw new Error(body?.error || 'Failed to generate carousel.')
       }
       const data = await res.json()
-      // Always keep the last (CTA) slide fixed
-      data.slides[data.slides.length - 1] = defaultCarousel.slides[defaultCarousel.slides.length - 1]
+      // Always keep the last (CTA) slide fixed per account
+      const fixedCta = account?.id === 'dadly'
+        ? defaultDadlyCarousel.slides[defaultDadlyCarousel.slides.length - 1]
+        : defaultCarousel.slides[defaultCarousel.slides.length - 1]
+      data.slides[data.slides.length - 1] = fixedCta
       setCarousel(data)
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Something went wrong.')
@@ -137,7 +148,11 @@ function App() {
       <main className="main">
         <section className="panel">
           <div className="panelTitle">Preview</div>
-          <CarouselPreview carousel={carousel} scale={0.65} />
+          <CarouselPreview
+            carousel={carousel}
+            scale={0.65}
+            SlideComponent={account?.id === 'dadly' ? DadlySlide : undefined}
+          />
         </section>
       </main>
 
@@ -145,6 +160,7 @@ function App() {
         <CarouselCanvas
           carousel={carousel}
           scale={1}
+          SlideComponent={account?.id === 'dadly' ? DadlySlide : undefined}
           slideRefSetter={(idx, node) => {
             exportRefs.current[idx] = node
           }}

@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const { generateCarousel, generateLinkedInCarousel } = require("./openai");
+const { generateCarousel, generateLinkedInCarousel, generateDadlyCarousel } = require("./openai");
 
 const app = express();
 app.use(cors());
@@ -36,6 +36,20 @@ app.post("/api/generate-linkedin", async (req, res) => {
       return res.status(400).json({ error: "Missing 'theme' string." });
     }
     const data = await generateLinkedInCarousel({ theme, language });
+    return res.json(data);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    return res.status(500).json({ error: message });
+  }
+});
+
+app.post("/api/generate-dadly", async (req, res) => {
+  try {
+    const { theme, language = "en" } = req.body ?? {};
+    if (!theme || typeof theme !== "string") {
+      return res.status(400).json({ error: "Missing 'theme' string." });
+    }
+    const data = await generateDadlyCarousel({ theme, language });
     return res.json(data);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";

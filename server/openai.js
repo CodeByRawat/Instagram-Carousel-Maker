@@ -267,5 +267,119 @@ async function generateLinkedInCarousel({ theme, language }) {
   return parsed;
 }
 
-module.exports = { generateCarousel, generateLinkedInCarousel };
+function buildDadlySystemPrompt() {
+  return [
+    "You write viral, informational Instagram carousel copy for @pagefordads — the Dadly app account.",
+    "",
+    "ABOUT DADLY: An app for new and expecting dads. Gives clear answers to pregnancy, newborn, and early parenting questions without panic spirals.",
+    "",
+    "VOICE:",
+    "- Direct, practical, reassuring. Speaks man-to-man.",
+    "- No fluff. No judgment. No baby-talk.",
+    "- The first slide (hook) MUST be extremely hooky — a POV, a relatable 3am moment, or a bold statement that makes dads stop scrolling.",
+    "",
+    "RULES:",
+    "- Only factually accurate parenting/baby information.",
+    "- Each lesson slide = one clear, actionable insight.",
+    "- Use exactly 6 slides: hook, lesson, lesson, lesson, lesson, CTA.",
+    "- The CTA always promotes downloading the Dadly app.",
+    "",
+    "FORMAT: Output MUST be valid JSON only. No markdown. No backticks.",
+  ].join("\n")
+}
+
+function buildDadlyUserPrompt({ theme, language }) {
+  return [
+    `THEME: ${theme}`,
+    `LANGUAGE: ${language}`,
+    "",
+    "Return JSON with this exact shape:",
+    "{",
+    '  "theme": string,',
+    '  "slides": [',
+    "    {",
+    '      "type": "hook",',
+    '      "eyebrow": string,',
+    '      "headline": string,',
+    '      "subtext": string,',
+    '      "handle": "pagefordads",',
+    '      "roleTag": "FOR DADS"',
+    "    },",
+    "    {",
+    '      "type": "lesson",',
+    '      "lessonLabel": "Tip 01 · [topic]",',
+    '      "ghostNumber": "01",',
+    '      "headline": string,',
+    '      "body": string,',
+    '      "handle": "pagefordads"',
+    "    },",
+    "    {",
+    '      "type": "lesson",',
+    '      "lessonLabel": "Tip 02 · [topic]",',
+    '      "ghostNumber": "02",',
+    '      "headline": string,',
+    '      "body": string,',
+    '      "handle": "pagefordads"',
+    "    },",
+    "    {",
+    '      "type": "lesson",',
+    '      "lessonLabel": "Tip 03 · [topic]",',
+    '      "ghostNumber": "03",',
+    '      "headline": string,',
+    '      "body": string,',
+    '      "handle": "pagefordads"',
+    "    },",
+    "    {",
+    '      "type": "lesson",',
+    '      "lessonLabel": "Tip 04 · [topic]",',
+    '      "ghostNumber": "04",',
+    '      "headline": string,',
+    '      "body": string,',
+    '      "handle": "pagefordads"',
+    "    },",
+    "    {",
+    '      "type": "cta",',
+    '      "eyebrow": string,',
+    '      "headline": string,',
+    '      "subtitle": string,',
+    '      "pillars": [string, string, string, string, string],',
+    '      "handle": "pagefordads"',
+    "    }",
+    "  ]",
+    "}",
+    "",
+    "Content rules:",
+    "- Hook headline: 2–4 lines, bold and relatable. Use *asterisks* around one word or phrase for gold highlight.",
+    "- Hook subtext: tease what the carousel covers (1 line).",
+    "- Lesson headline: punchy, max 10 words. Use *asterisks* for highlight.",
+    "- Lesson body: 2–3 sentences. Bold key insight with **double asterisks**.",
+    "- CTA pillars: 5 Dadly app features, short and punchy.",
+  ].join("\n")
+}
+
+async function generateDadlyCarousel({ theme, language }) {
+  const client = getClient()
+  const resp = await client.responses.create({
+    model: process.env.OPENAI_MODEL || 'gpt-4.1-mini',
+    temperature: 0.75,
+    max_output_tokens: 900,
+    input: [
+      { role: 'system', content: buildDadlySystemPrompt() },
+      { role: 'user', content: buildDadlyUserPrompt({ theme, language }) },
+    ],
+    text: { format: { type: 'json_object' } },
+  })
+
+  const text = resp.output_text
+  let parsed
+  try { parsed = JSON.parse(text) } catch {
+    throw new Error('Model did not return valid JSON. Try again.')
+  }
+  if (!parsed || !Array.isArray(parsed.slides) || parsed.slides.length !== 6) {
+    throw new Error('Unexpected JSON shape from model. Try again.')
+  }
+  return parsed
+}
+
+module.exports = { generateCarousel, generateLinkedInCarousel, generateDadlyCarousel };
 
