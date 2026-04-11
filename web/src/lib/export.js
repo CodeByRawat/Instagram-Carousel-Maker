@@ -21,7 +21,7 @@ export async function exportCarouselZip({ theme, slideNodes }) {
 
   for (let i = 0; i < slideNodes.length; i++) {
     const node = slideNodes[i]
-    const dataUrl = await htmlToImage.toPng(node, {
+    const opts = {
       pixelRatio: 2,
       cacheBust: true,
       width: 1080,
@@ -29,7 +29,11 @@ export async function exportCarouselZip({ theme, slideNodes }) {
       style: {
         transform: 'none',
       },
-    })
+    }
+    // First call fetches and caches all embedded images (fonts, <img> src, etc.)
+    // Second call renders with everything already cached — prevents blank images
+    await htmlToImage.toPng(node, opts)
+    const dataUrl = await htmlToImage.toPng(node, opts)
 
     const base64 = dataUrl.split(',')[1]
     folder.file(`${String(i + 1).padStart(2, '0')}.png`, base64, { base64: true })
