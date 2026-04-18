@@ -128,7 +128,7 @@
 }
 
 .dadlyLessonLabel {
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 800;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -159,7 +159,7 @@
 }
 
 .dadlyLessonBody {
-  font-size: 27px;
+  font-size: 36px;
   line-height: 1.55;
   color: var(--dm);
   max-width: 900px;
