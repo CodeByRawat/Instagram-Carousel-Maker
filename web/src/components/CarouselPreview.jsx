@@ -2,10 +2,10 @@ import { useState, useRef, useEffect } from 'react'
 import { Slide } from './Slide.jsx'
 import './CarouselPreview.css'
 
-const SLIDE_W = 1080
+const SLIDE_W = 1200
 const MAX_SCALE = 0.65
 
-export function CarouselPreview({ carousel, SlideComponent = Slide, slideHeight = 1350 }) {
+export function CarouselPreview({ carousel, SlideComponent = Slide, slideHeight = 1500 }) {
   const SLIDE_H = slideHeight
   const slides = Array.isArray(carousel?.slides) ? carousel.slides : []
   const [current, setCurrent] = useState(0)

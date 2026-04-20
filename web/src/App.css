@@ -108,11 +108,39 @@
   line-height: 1.6;
 }
 
-.liContentCount {
+.liContentFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-top: 6px;
+}
+
+.liContentCount {
   font-size: 11px;
   color: rgba(17, 17, 17, 0.35);
-  text-align: right;
+}
+
+.liIdeaPicker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: rgba(17, 17, 17, 0.5);
+  text-transform: uppercase;
+}
+
+.liIdeaInput {
+  width: 48px;
+  padding: 3px 6px;
+  border: 1px solid rgba(17, 17, 17, 0.2);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  background: #fff;
+  color: #111;
 }
 
 /* ── Study AI hint strip ───────────────────────────────────────────── */
@@ -348,7 +376,7 @@
   position: absolute;
   left: -99999px;
   top: 0;
-  width: 1080px;
+  width: 1200px;
 }
 
 @media (max-width: 1100px) {

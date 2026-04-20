@@ -7,7 +7,7 @@ export function DadlySlide({ slide, index, total, slideRef }) {
   const common = { slide, index, total }
 
   return (
-    <div ref={slideRef} style={{ width: 1080, height: 1350, position: 'relative' }}>
+    <div ref={slideRef} style={{ width: 1200, height: 1500, position: 'relative' }}>
       {type === 'hook'   ? <DadlyHookSlide   {...common} /> : null}
       {type === 'lesson' ? <DadlyLessonSlide {...common} /> : null}
       {type === 'cta'    ? <DadlyCtaSlide    {...common} /> : null}

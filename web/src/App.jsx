@@ -2,7 +2,7 @@ import './App.css'
 import { useMemo, useRef, useState } from 'react'
 import { CarouselCanvas } from './components/CarouselCanvas.jsx'
 import { CarouselPreview } from './components/CarouselPreview.jsx'
-import { exportCarouselZip } from './lib/export.js'
+import { exportCarouselZip, exportCarouselPdf } from './lib/export.js'
 import { defaultCarousel } from './lib/sample.js'
 import instagramIcon from './assets/instagram.png'
 import linkedinIcon from './assets/linkedin.png'
@@ -22,13 +22,16 @@ function App() {
   const [slideCount, setSlideCount] = useState(8)
   const [linkedinMode, setLinkedinMode] = useState('generate')
   const [content, setContent] = useState('')
+  const [ideaIndex, setIdeaIndex] = useState(1)
   const [studyTopic, setStudyTopic] = useState('')
+  const [newsContent, setNewsContent] = useState('')
+  const [storyCount, setStoryCount] = useState(6)
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState('')
   const [carousel, setCarousel] = useState(defaultCarousel)
 
   const isLinkedIn = platform === 'linkedin'
-  const slideHeight = isLinkedIn ? 1080 : 1350
+  const slideHeight = 1500
   const activeSlideComponent = isLinkedIn
     ? LinkedInSlide
     : account?.id === 'dadly'
@@ -70,10 +73,14 @@ function App() {
     try {
       let endpoint, body
 
-      if (isLinkedIn && linkedinMode === 'from-content') {
+      if (isLinkedIn && linkedinMode === 'news') {
+        if (!newsContent.trim()) throw new Error('Paste some news content first.')
+        endpoint = '/api/generate-linkedin-news'
+        body = { newsContent, storyCount }
+      } else if (isLinkedIn && linkedinMode === 'from-content') {
         if (!content.trim()) throw new Error('Paste some content first.')
         endpoint = '/api/generate-linkedin-from-content'
-        body = { content, slideCount }
+        body = { content, slideCount, ideaIndex }
       } else if (isLinkedIn && linkedinMode === 'study') {
         if (!studyTopic.trim()) throw new Error('Enter a topic first.')
         endpoint = '/api/generate-linkedin-study'
@@ -117,11 +124,19 @@ function App() {
   async function onExport() {
     setError('')
     try {
-      await exportCarouselZip({
-        theme: carousel?.theme || theme,
-        slideNodes: exportRefs.current.filter(Boolean),
-        slideHeight,
-      })
+      if (isLinkedIn) {
+        await exportCarouselPdf({
+          theme: carousel?.theme || theme,
+          slideNodes: exportRefs.current.filter(Boolean),
+          slideHeight,
+        })
+      } else {
+        await exportCarouselZip({
+          theme: carousel?.theme || theme,
+          slideNodes: exportRefs.current.filter(Boolean),
+          slideHeight,
+        })
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Export failed.')
     }
@@ -129,6 +144,8 @@ function App() {
 
   const generateLabel = isLinkedIn && linkedinMode === 'from-content'
     ? 'Convert to slides'
+    : isLinkedIn && linkedinMode === 'news'
+    ? 'Build news carousel'
     : 'Generate'
 
   if (page === 'landing') {
@@ -191,8 +208,8 @@ function App() {
             </label>
           )}
 
-          {/* Slide count — LinkedIn only */}
-          {isLinkedIn && (
+          {/* Slide count — LinkedIn only, not in news mode (stories picker handles it) */}
+          {isLinkedIn && linkedinMode !== 'news' && (
             <label className="field">
               <span>Slides</span>
               <select value={slideCount} onChange={(e) => setSlideCount(Number(e.target.value))}>
@@ -207,7 +224,7 @@ function App() {
             {isGenerating ? 'Generating…' : generateLabel}
           </button>
           <button className="btn secondary" onClick={onExport} disabled={!canExport}>
-            Download PNG ZIP
+            {isLinkedIn ? 'Download PDF' : 'Download PNG ZIP'}
           </button>
         </div>
       </header>
@@ -236,6 +253,13 @@ function App() {
             <span className="liModeIcon">∿</span>
             Study AI
           </button>
+          <button
+            className={`liModeTab ${linkedinMode === 'news' ? 'active' : ''}`}
+            onClick={() => handleLinkedinModeChange('news')}
+          >
+            <span className="liModeIcon">◈</span>
+            News
+          </button>
         </div>
       )}
 
@@ -245,19 +269,32 @@ function App() {
           <div className="liContentPanelLabel">
             Paste your content
             <span className="liContentPanelHint">
-              Blog post · article · tweet · rough notes · anything
+              Blog post · article · tweet · rough notes · list of ideas
             </span>
           </div>
           <textarea
             className="liContentTextarea"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="Paste a blog post, article, tweet, or rough notes here. The AI will extract the key ideas and rewrite them as carousel slides in your voice."
+            placeholder="Paste a blog post, article, brief, or a numbered list of carousel ideas. Use 'Idea #' below to pick which one to build."
             rows={8}
           />
-          {content.trim().length > 0 && (
-            <div className="liContentCount">{content.trim().length} characters</div>
-          )}
+          <div className="liContentFooter">
+            {content.trim().length > 0 && (
+              <div className="liContentCount">{content.trim().length} characters</div>
+            )}
+            <label className="liIdeaPicker">
+              <span>Idea #</span>
+              <input
+                type="number"
+                min={1}
+                max={20}
+                value={ideaIndex}
+                onChange={(e) => setIdeaIndex(Math.max(1, parseInt(e.target.value) || 1))}
+                className="liIdeaInput"
+              />
+            </label>
+          </div>
         </div>
       )}
 
@@ -266,6 +303,43 @@ function App() {
         <div className="liStudyHint">
           <strong>What works well:</strong>
           {' '}RAG · embeddings · prompt caching · tool use · MCP · vector DBs · fine-tuning · agents · context windows · function calling
+        </div>
+      )}
+
+      {/* News: paste area */}
+      {isLinkedIn && linkedinMode === 'news' && (
+        <div className="liContentPanel">
+          <div className="liContentPanelLabel">
+            Paste today's news
+            <span className="liContentPanelHint">
+              Headlines · summaries · articles · your daily briefing
+            </span>
+          </div>
+          <textarea
+            className="liContentTextarea"
+            value={newsContent}
+            onChange={(e) => setNewsContent(e.target.value)}
+            placeholder="Paste a news briefing, headlines, or article summaries. The AI will extract the top stories and format them as a clean news carousel."
+            rows={8}
+          />
+          <div className="liContentFooter">
+            {newsContent.trim().length > 0 && (
+              <div className="liContentCount">{newsContent.trim().length} characters</div>
+            )}
+            <label className="liIdeaPicker">
+              <span>Stories</span>
+              <select
+                value={storyCount}
+                onChange={(e) => setStoryCount(Number(e.target.value))}
+                className="liIdeaInput"
+                style={{ width: 'auto', padding: '3px 6px' }}
+              >
+                {[3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+                  <option key={n} value={n}>{n}</option>
+                ))}
+              </select>
+            </label>
+          </div>
         </div>
       )}
 

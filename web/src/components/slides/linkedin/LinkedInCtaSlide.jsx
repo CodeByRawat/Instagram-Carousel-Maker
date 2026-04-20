@@ -1,76 +1,62 @@
 import './linkedin.css'
-import profilePhoto from '../../../assets/profile.png'
+import profilePhoto from '../../../assets/photo.png'
 import { renderLinkedInText } from './renderLinkedIn.jsx'
 
 export function LinkedInCtaSlide({ slide }) {
   const footerTag = slide?.footerTag || '/ workflow notes'
 
   return (
-    <div className="liSlide">
+    <div className="liSlide" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+
       {/* Ghost accent */}
       <div style={{
-        position: 'absolute',
-        right: 50,
-        top: 44,
-        fontSize: 280,
-        fontWeight: 900,
-        letterSpacing: -10,
-        color: 'rgba(204,255,0,0.04)',
-        lineHeight: 1,
-        pointerEvents: 'none',
-        userSelect: 'none',
-      }}>
-        ↗
+        position: 'absolute', right: 50, top: 44,
+        fontSize: 320, fontWeight: 900, letterSpacing: -10,
+        color: 'rgba(204,255,0,0.04)', lineHeight: 1,
+        pointerEvents: 'none', userSelect: 'none',
+      }}>↗</div>
+
+      {/* Center block */}
+      <div style={{ width: '100%', padding: '0 80px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+
+        {/* Accent bar just above eyebrow */}
+        <div style={{ width: 120, height: 8, background: '#CCFF00', marginBottom: 28 }} />
+
+        {/* Eyebrow */}
+        <div className="liCtaEyebrow">
+          {slide?.eyebrow || 'BUILDING IN PUBLIC · AI & AUTOMATION'}
+        </div>
+
+        {/* Headline */}
+        <div className="liCtaHeadline">
+          {(slide?.headline || 'follow for\nmore.').split('\n').map((line, i) => (
+            <div key={i}>{line}</div>
+          ))}
+        </div>
+
+        {/* Subtitle */}
+        <div className="liCtaSubtitle" style={{ textAlign: 'center', maxWidth: '100%' }}>
+          {renderLinkedInText(slide?.subtitle || "AI agents, automation workflows, and what I'm actually shipping.")}
+        </div>
+
       </div>
 
-      {/* Main content — vertically centred */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        padding: '60px 60px 200px 60px',
-        display: 'flex',
-        flexDirection: 'column',
-      }}>
-        {/* Top anchor */}
+      {/* Author — bottom left */}
+      <div style={{ position: 'absolute', bottom: 60, left: 80, display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div style={{ width: 72, height: 72, borderRadius: '50%', overflow: 'hidden', flexShrink: 0 }}>
+          <img src={profilePhoto} alt="Sachin Rawat" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        </div>
         <div>
-          <div className="liAccentBar" />
-        </div>
-
-        {/* Centred content */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div className="liCtaEyebrow">
-            {slide?.eyebrow || 'BUILDING IN PUBLIC · AI & AUTOMATION'}
-          </div>
-          <div className="liCtaHeadline">
-            {(slide?.headline || 'follow for\nmore.').split('\n').map((line, i) => (
-              <div key={i}>{line}</div>
-            ))}
-          </div>
-          <div className="liCtaSubtitle">
-            {renderLinkedInText(slide?.subtitle || "AI agents, automation workflows, and what I'm actually shipping.")}
-          </div>
+          <div style={{ fontSize: 26, fontWeight: 600, color: '#EAF0FB', lineHeight: 1.3 }}>Sachin Rawat</div>
+          <div style={{ fontSize: 20, fontWeight: 400, color: 'rgba(234,240,251,0.65)', lineHeight: 1.3 }}>AI &amp; Automation Engineer</div>
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="liFooter">
-        <div className="liDividerLine" />
-        <div className="liFooterRow">
-          <div className="liAuthorBlock">
-            <div className="liAvatar" style={{ overflow: 'hidden', background: 'none', padding: 0 }}>
-              <img src={profilePhoto} alt="Sachin Rawat" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
-            </div>
-            <div>
-              <div className="liAuthorName">Sachin Rawat</div>
-              <div className="liAuthorRole">AI &amp; Automation Engineer</div>
-            </div>
-          </div>
-          <div className="liFooterTag">{footerTag}</div>
-        </div>
+      {/* Footer tag — bottom right */}
+      <div style={{ position: 'absolute', bottom: 60, right: 80, fontSize: 22, fontWeight: 500, color: '#CCFF00' }}>
+        {footerTag}
       </div>
+
     </div>
   )
 }

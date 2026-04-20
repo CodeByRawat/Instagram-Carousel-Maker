@@ -369,32 +369,29 @@ async function generateDadlyCarousel({ theme, language }) {
 
 function buildFromContentSystemPrompt() {
   return [
-    "You convert user-provided content into LinkedIn carousel slides for Sachin Rawat, an AI & Automation Engineer.",
-    "Take the raw content (blog post, tweet, article, notes, or rough ideas) and restructure it as a carousel in Sachin's voice.",
+    "You build LinkedIn carousel slides for Sachin Rawat, an AI & Automation Engineer.",
+    "",
+    "Your job is to follow a carousel brief exactly — not to summarise it, not to interpret it loosely.",
+    "A brief tells you: the title, the structure (e.g. hook → 3 X → 3 Y → CTA), and the specific points to cover.",
+    "Your job is to flesh each point out into a full slide with real, specific content.",
     "",
     "SACHIN'S VOICE:",
     "- Direct and honest. No hype, no 'game-changer', no 'revolutionary', no '🚀'.",
     "- Short lines, punchy rhythm. One idea per line. Frequent line breaks.",
-    "- First-person, specific, grounded in real building experience.",
-    "- Self-deprecating when useful. Sentence case. No fluff adjectives.",
-    "",
-    "HONESTY RULES:",
-    "- Only use claims and facts present in the provided content. Do not invent.",
-    "- Never fabricate metrics, quotes, or tool names that aren't in the source.",
-    "- Write in first person only for things the source says Sachin actually did.",
+    "- First-person where it fits. Sentence case. No fluff adjectives.",
     "",
     "FORMAT: Valid JSON only. No markdown. No backticks.",
   ].join("\n");
 }
 
-function buildFromContentUserPrompt({ content, slideCount = 8 }) {
+function buildFromContentUserPrompt({ content, slideCount = 8, ideaIndex = 1 }) {
   const lessonCount = slideCount - 2;
   const lessonSlides = Array.from({ length: lessonCount }, (_, i) => {
     const n = String(i + 1).padStart(2, "0");
     return [
       "    {",
       '      "type": "lesson",',
-      `      "lessonLabel": "TIP ${n} · [TOPIC IN CAPS]",`,
+      `      "lessonLabel": "TIP ${n} · [ACTUAL TOPIC IN CAPS — match the brief point]",`,
       `      "slideNumber": "${n}",`,
       '      "headline": string,',
       '      "body": string,',
@@ -406,10 +403,26 @@ function buildFromContentUserPrompt({ content, slideCount = 8 }) {
   return [
     `SOURCE CONTENT:\n"""\n${content}\n"""`,
     "",
-    `SLIDE COUNT: ${slideCount} (1 hook + ${lessonCount} lesson + 1 cta)`,
+    `TARGET: Build carousel for idea #${ideaIndex} from the list above.`,
+    `SLIDE COUNT: ${slideCount} (1 hook + ${lessonCount} lessons + 1 cta)`,
     "",
-    "Extract the core ideas from the source content and restructure them as carousel slides.",
-    "Rewrite in Sachin's voice — do not copy sentences verbatim.",
+    "FOLLOW THESE STEPS EXACTLY:",
+    "",
+    `Step 1 — EXTRACT IDEA #${ideaIndex}:`,
+    `  Find the item numbered ${ideaIndex}. in the source. Ignore all other items.`,
+    "  Pull out: (a) the quoted title, (b) the described slide structure, (c) the specific points/roles/tools/items listed.",
+    "",
+    "Step 2 — MAP THE STRUCTURE:",
+    "  The brief's structure tells you what each slide covers. Follow it slide-for-slide.",
+    `  Example: if the brief says 'hook → 3 roles AI automates → 3 roles AI fumbles → CTA', then:`,
+    "    Slide 1 = hook, Slides 2-4 = one automation role each, Slides 5-7 = one fumble each, Slide 8 = CTA.",
+    "  Adjust for your actual slide count and the brief's actual structure.",
+    "",
+    "Step 3 — WRITE THE SLIDES:",
+    "  Hook: derive line1/line2/line3 from the brief's title. line3 goes in the neon-green block — make it 1–4 punchy words.",
+    "  Lessons: one slide per point from the brief. lessonLabel TOPIC must name the actual point (e.g. 'EMAIL TRIAGE', 'JUDGMENT CALLS', 'CREATIVE DIRECTION'), not a generic label.",
+    "  Lesson body: 3–5 short lines. Real, specific content about that point. Not vague.",
+    "  CTA: if the brief specifies CTA language (e.g. 'DM me AUDIT'), use it verbatim.",
     "",
     "Return JSON with this exact shape:",
     "{",
@@ -441,20 +454,21 @@ function buildFromContentUserPrompt({ content, slideCount = 8 }) {
     "- lesson headline: the core insight, max 10 words, sentence case.",
     "- lesson body: 3–5 short punchy lines separated by \\n.",
     "  * Use ===text=== around the sharpest punchline in the slide.",
+    "  * Use [pill]Word[/pill] tags on one line to render command/keyword pills — e.g. [pill]Test[/pill][pill]Lint[/pill].",
     "  * Use **double-asterisks** around one key insight per slide.",
     "- Keep it grounded in the source content. No invented facts.",
   ].join("\n");
 }
 
-async function generateLinkedInFromContent({ content, slideCount = 8 }) {
+async function generateLinkedInFromContent({ content, slideCount = 8, ideaIndex = 1 }) {
   const client = getClient();
   const resp = await client.responses.create({
     model: process.env.OPENAI_MODEL || "gpt-4.1-mini",
     temperature: 0.65,
-    max_output_tokens: 1800,
+    max_output_tokens: 3000,
     input: [
       { role: "system", content: buildFromContentSystemPrompt() },
-      { role: "user", content: buildFromContentUserPrompt({ content, slideCount }) },
+      { role: "user", content: buildFromContentUserPrompt({ content, slideCount, ideaIndex }) },
     ],
     text: { format: { type: "json_object" } },
   });
@@ -464,7 +478,7 @@ async function generateLinkedInFromContent({ content, slideCount = 8 }) {
   try { parsed = JSON.parse(text); } catch {
     throw new Error("Model did not return valid JSON. Try again.");
   }
-  if (!parsed || !Array.isArray(parsed.slides) || parsed.slides.length !== slideCount) {
+  if (!parsed || !Array.isArray(parsed.slides) || parsed.slides.length < 2) {
     throw new Error("Unexpected JSON shape from model. Try again.");
   }
   return parsed;
@@ -574,11 +588,117 @@ async function generateLinkedInStudy({ topic, slideCount = 8 }) {
   try { parsed = JSON.parse(text); } catch {
     throw new Error("Model did not return valid JSON. Try again.");
   }
-  if (!parsed || !Array.isArray(parsed.slides) || parsed.slides.length !== slideCount) {
+  if (!parsed || !Array.isArray(parsed.slides) || parsed.slides.length < 2) {
     throw new Error("Unexpected JSON shape from model. Try again.");
   }
   return parsed;
 }
 
-module.exports = { generateCarousel, generateLinkedInCarousel, generateDadlyCarousel, generateLinkedInFromContent, generateLinkedInStudy };
+// ── News: turn a news dump into a daily news carousel ───────────────────────
+
+function buildNewsSystemPrompt() {
+  return [
+    "You convert raw AI news content into a daily news LinkedIn carousel for Sachin Rawat, an AI & Automation Engineer.",
+    "",
+    "Your job is to extract, summarise, and format news stories as clean slide content.",
+    "",
+    "RULES:",
+    "- Only include information present in the source. Do not invent stories, details, or numbers.",
+    "- Each story gets its own slide. Do not merge stories.",
+    "- Assign a short CATEGORY label to each story (e.g. REGULATION, MODELS, FUNDING, SECURITY, RESEARCH, INDUSTRY).",
+    "- Write concise, factual summaries. No hype. No opinion. No emoji.",
+    "- Headline: rewrite as a punchy 6–10 word summary — do not copy the source headline verbatim.",
+    "- Summary: 2–3 short lines. Just the facts. Numbers, deadlines, and specifics are good.",
+    "",
+    "FORMAT: Valid JSON only. No markdown. No backticks.",
+  ].join("\n");
+}
+
+function buildNewsUserPrompt({ newsContent, storyCount = 6 }) {
+  const storySlides = Array.from({ length: storyCount }, (_, i) => {
+    const n = String(i + 1).padStart(2, "0");
+    return [
+      "    {",
+      '      "type": "news-story",',
+      `      "storyNumber": "${n}",`,
+      '      "category": string,',
+      '      "headline": string,',
+      '      "summary": string,',
+      '      "source": string,',
+      '      "footerTag": "/ daily news"',
+      "    },",
+    ].join("\n");
+  }).join("\n");
+
+  return [
+    `NEWS CONTENT:\n"""\n${newsContent}\n"""`,
+    "",
+    `Extract the top ${storyCount} stories from the news content above.`,
+    "If there are fewer stories than requested, include all of them.",
+    "",
+    "Return JSON with this exact shape:",
+    "{",
+    '  "theme": string,',
+    '  "slides": [',
+    "    {",
+    '      "type": "news-cover",',
+    '      "eyebrow": "AI & AUTOMATION · DAILY NEWS",',
+    '      "dateDay": string,',
+    '      "dateMonth": string,',
+    '      "dateYear": string,',
+    `      "storyCount": "${storyCount} STORIES",`,
+    '      "subtitle": string,',
+    '      "footerTag": "/ daily news"',
+    "    },",
+    storySlides,
+    "    {",
+    '      "type": "cta",',
+    '      "eyebrow": "STAY AHEAD · AI & AUTOMATION",',
+    '      "headline": string,',
+    '      "subtitle": string,',
+    '      "footerTag": "/ daily news"',
+    "    }",
+    "  ]",
+    "}",
+    "",
+    "Field rules:",
+    "- theme: short label like 'Top AI Stories · April 19, 2026'",
+    "- news-cover dateDay: just the day number e.g. '19'",
+    "- news-cover dateMonth: 3-letter month caps e.g. 'APR'",
+    "- news-cover dateYear: 4-digit year e.g. '2026'",
+    "- news-cover subtitle: one lowercase line e.g. 'what happened in AI today'",
+    "- news-story category: one word in CAPS (REGULATION · MODELS · FUNDING · SECURITY · RESEARCH · INDUSTRY)",
+    "- news-story headline: 6–10 words, sentence case, punchy rewrite of the story's core fact",
+    "- news-story summary: 2–3 lines separated by \\n. Be specific — include numbers, deadlines, names.",
+    "- news-story source: publication name only (e.g. 'Asanify', 'Reuters', 'The Verge')",
+    "- cta headline: 2 lines split with \\n, e.g. 'follow for\\ndaily AI news.'",
+    "- cta subtitle: 1–2 lines about what Sachin covers. May use ===text=== for the closing neon block.",
+  ].join("\n");
+}
+
+async function generateLinkedInNews({ newsContent, storyCount = 6 }) {
+  const client = getClient();
+  const resp = await client.responses.create({
+    model: process.env.OPENAI_MODEL || "gpt-4.1-mini",
+    temperature: 0.4,
+    max_output_tokens: 3000,
+    input: [
+      { role: "system", content: buildNewsSystemPrompt() },
+      { role: "user", content: buildNewsUserPrompt({ newsContent, storyCount }) },
+    ],
+    text: { format: { type: "json_object" } },
+  });
+
+  const text = resp.output_text;
+  let parsed;
+  try { parsed = JSON.parse(text); } catch {
+    throw new Error("Model did not return valid JSON. Try again.");
+  }
+  if (!parsed || !Array.isArray(parsed.slides) || parsed.slides.length < 2) {
+    throw new Error("Unexpected JSON shape from model. Try again.");
+  }
+  return parsed;
+}
+
+module.exports = { generateCarousel, generateLinkedInCarousel, generateDadlyCarousel, generateLinkedInFromContent, generateLinkedInStudy, generateLinkedInNews };
 

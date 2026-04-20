@@ -7,8 +7,8 @@
   --li-muted:   rgba(234, 240, 251, 0.65);
   --li-divider: rgba(234, 240, 251, 0.25);
 
-  width: 1080px;
-  height: 1080px;
+  width: 1200px;
+  height: 1500px;
   background: var(--li-bg);
   color: var(--li-text);
   position: relative;
@@ -20,10 +20,8 @@
 
 /* ── Shared footer bar ─────────────────────────────────────────────── */
 .liFooter {
-  position: absolute;
-  left: 60px;
-  right: 60px;
-  bottom: 60px;
+  padding: 0 80px 72px 80px;
+  flex-shrink: 0;
 }
 
 .liDividerLine {

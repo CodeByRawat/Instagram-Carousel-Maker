@@ -1,39 +1,52 @@
 import './linkedin.css'
 import profilePhoto from '../../../assets/photo.png'
-import { renderLinkedInText } from './renderLinkedIn.jsx'
 
-export function LinkedInContentSlide({ slide, index }) {
-  const num = slide?.slideNumber || String(index).padStart(2, '0')
-  const footerTag = slide?.footerTag || '/ workflow notes'
+export function LinkedInNewsStorySlide({ slide, index }) {
+  const num = slide?.storyNumber || String(index).padStart(2, '0')
 
   return (
     <div className="liSlide" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
 
-      {/* Ghost number — decorative */}
+      {/* Ghost number */}
       <div className="liGhost">{num}</div>
 
       {/* Center block */}
       <div style={{ width: '100%', padding: '0 80px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
 
-        {/* Accent bar just above label */}
-        <div style={{ width: 120, height: 8, background: '#CCFF00', marginBottom: 24 }} />
+        {/* Accent bar just above category */}
+        <div style={{ width: 120, height: 8, background: '#CCFF00', marginBottom: 28 }} />
 
-        {/* Slide label */}
-        <div className="liSlideLabel">
-          {slide?.lessonLabel || `tip ${num}`}
+        {/* Category + source */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14, justifyContent: 'center', marginBottom: 40 }}>
+          {slide?.category && (
+            <span style={{
+              background: 'rgba(204,255,0,0.12)', color: '#CCFF00',
+              fontSize: 15, fontWeight: 700, letterSpacing: 2.5,
+              padding: '6px 16px', borderRadius: 4, textTransform: 'uppercase',
+            }}>
+              {slide.category}
+            </span>
+          )}
+          {slide?.source && (
+            <span style={{ fontSize: 15, fontWeight: 500, color: 'rgba(234,240,251,0.3)', letterSpacing: 0.5 }}>
+              {slide.source}
+            </span>
+          )}
         </div>
 
         {/* Headline */}
-        <div className="liHeadline" style={{ marginTop: 8 }}>
+        <div style={{ fontSize: 72, fontWeight: 700, letterSpacing: -2, lineHeight: 1.05, color: '#EAF0FB' }}>
           {slide?.headline || ''}
         </div>
 
         {/* Accent rule */}
         <div style={{ width: 56, height: 4, background: '#CCFF00', margin: '40px 0' }} />
 
-        {/* Body */}
-        <div className="liBody">
-          {renderLinkedInText(slide?.body || '')}
+        {/* Summary */}
+        <div style={{ fontSize: 36, fontWeight: 400, lineHeight: 1.6, color: 'rgba(234,240,251,0.65)' }}>
+          {(slide?.summary || '').split('\n').map((line, i) => (
+            <div key={i}>{line}</div>
+          ))}
         </div>
 
       </div>
@@ -51,7 +64,7 @@ export function LinkedInContentSlide({ slide, index }) {
 
       {/* Footer tag — bottom right */}
       <div style={{ position: 'absolute', bottom: 60, right: 80, fontSize: 22, fontWeight: 500, color: '#CCFF00' }}>
-        {footerTag}
+        {slide?.footerTag || '/ daily news'}
       </div>
 
     </div>
