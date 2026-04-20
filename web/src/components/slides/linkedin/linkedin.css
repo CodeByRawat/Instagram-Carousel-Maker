@@ -1,0 +1,183 @@
+/* ── LinkedIn Slide Brand System — Sachin Rawat ───────────────────── */
+
+.liSlide {
+  --li-bg:      #1B1B1B;
+  --li-accent:  #CCFF00;
+  --li-text:    #EAF0FB;
+  --li-muted:   rgba(234, 240, 251, 0.65);
+  --li-divider: rgba(234, 240, 251, 0.25);
+
+  width: 1080px;
+  height: 1080px;
+  background: var(--li-bg);
+  color: var(--li-text);
+  position: relative;
+  overflow: hidden;
+  font-family: Inter, 'Syne', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+  box-shadow: rgba(17, 17, 17, 0.22) 0 18px 48px -18px;
+}
+
+/* ── Shared footer bar ─────────────────────────────────────────────── */
+.liFooter {
+  position: absolute;
+  left: 60px;
+  right: 60px;
+  bottom: 60px;
+}
+
+.liDividerLine {
+  height: 1px;
+  background: var(--li-divider);
+  margin-bottom: 32px;
+}
+
+.liFooterRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.liAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--li-accent);
+  color: var(--li-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+
+.liAuthorBlock {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.liAuthorName {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--li-text);
+  line-height: 1.25;
+}
+
+.liAuthorRole {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--li-muted);
+  line-height: 1.25;
+}
+
+.liFooterTag {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--li-accent);
+  letter-spacing: 0.3px;
+}
+
+/* ── Accent bar (top-left) ─────────────────────────────────────────── */
+.liAccentBar {
+  width: 120px;
+  height: 8px;
+  background: var(--li-accent);
+  flex-shrink: 0;
+}
+
+/* ── Eyebrow label ─────────────────────────────────────────────────── */
+.liEyebrow {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--li-text);
+  margin-top: 32px;
+}
+
+/* ── Content slide ─────────────────────────────────────────────────── */
+.liContentArea {
+  padding: 60px 60px 0 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ghost slide number */
+.liGhost {
+  position: absolute;
+  right: 50px;
+  top: 44px;
+  font-size: 280px;
+  font-weight: 900;
+  letter-spacing: -10px;
+  color: rgba(204, 255, 0, 0.06);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.liSlideLabel {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--li-accent);
+  margin-bottom: 32px;
+}
+
+.liHeadline {
+  font-size: 76px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  line-height: 1.0;
+  color: var(--li-text);
+}
+
+.liAccentRule {
+  width: 56px;
+  height: 4px;
+  background: var(--li-accent);
+  margin: 36px 0;
+  flex-shrink: 0;
+}
+
+.liBody {
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--li-muted);
+}
+
+.liBody strong {
+  color: var(--li-accent);
+  font-weight: 700;
+}
+
+/* ── CTA slide ─────────────────────────────────────────────────────── */
+.liCtaEyebrow {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--li-accent);
+  margin-bottom: 28px;
+}
+
+.liCtaHeadline {
+  font-size: 100px;
+  font-weight: 700;
+  letter-spacing: -3px;
+  line-height: 0.96;
+  color: var(--li-text);
+}
+
+.liCtaSubtitle {
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--li-muted);
+  margin-top: 36px;
+  max-width: 820px;
+}

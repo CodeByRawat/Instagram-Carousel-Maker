@@ -3,10 +3,10 @@ import { Slide } from './Slide.jsx'
 import './CarouselPreview.css'
 
 const SLIDE_W = 1080
-const SLIDE_H = 1350
 const MAX_SCALE = 0.65
 
-export function CarouselPreview({ carousel, SlideComponent = Slide }) {
+export function CarouselPreview({ carousel, SlideComponent = Slide, slideHeight = 1350 }) {
+  const SLIDE_H = slideHeight
   const slides = Array.isArray(carousel?.slides) ? carousel.slides : []
   const [current, setCurrent] = useState(0)
   const [scale, setScale] = useState(MAX_SCALE)

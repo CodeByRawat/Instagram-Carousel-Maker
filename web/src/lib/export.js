@@ -11,9 +11,9 @@ function safeSlug(s) {
     .slice(0, 60)
 }
 
-export async function exportCarouselZip({ theme, slideNodes }) {
-  if (!Array.isArray(slideNodes) || slideNodes.length !== 6) {
-    throw new Error('Export stage not ready (need 6 slides).')
+export async function exportCarouselZip({ theme, slideNodes, slideHeight = 1350 }) {
+  if (!Array.isArray(slideNodes) || slideNodes.length === 0) {
+    throw new Error('Export stage not ready.')
   }
 
   const zip = new JSZip()
@@ -25,7 +25,7 @@ export async function exportCarouselZip({ theme, slideNodes }) {
       pixelRatio: 2,
       cacheBust: true,
       width: 1080,
-      height: 1350,
+      height: slideHeight,
       style: {
         transform: 'none',
       },
