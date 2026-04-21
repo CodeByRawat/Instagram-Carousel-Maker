@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/noto-serif-devanagari": "^5.2.10",
+    "@fontsource/playfair-display": "^5.2.8",
     "file-saver": "^2.0.5",
     "html-to-image": "^1.11.13",
     "jspdf": "^4.2.1",

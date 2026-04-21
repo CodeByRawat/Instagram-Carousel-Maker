@@ -57,8 +57,13 @@ function App() {
 
   function handleSelectAccount(acc) {
     setAccount(acc)
-    if (acc.id === 'dadly') setCarousel(defaultDadlyCarousel)
-    else setCarousel(defaultCarousel)
+    if (acc.id === 'dadly') {
+      setCarousel(defaultDadlyCarousel)
+      setTheme('viral baby questions dads are afraid to ask')
+    } else {
+      setCarousel(defaultCarousel)
+      setTheme('stress at work')
+    }
     setPage('main')
   }
 
@@ -193,7 +198,9 @@ function App() {
               <input
                 value={theme}
                 onChange={(e) => setTheme(e.target.value)}
-                placeholder="e.g. anxiety, failure, relationships"
+                placeholder={account?.id === 'dadly'
+                  ? 'e.g. crying, breathing, soft spot, sleep, poop, feeding'
+                  : 'e.g. anxiety, failure, relationships'}
               />
             </label>
           )}

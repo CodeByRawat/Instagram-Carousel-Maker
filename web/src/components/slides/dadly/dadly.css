@@ -1,17 +1,23 @@
 /* ── Dadly Brand Variables ─────────────────────────────────── */
 .dadlySlide {
-  --dn:  #FFEDCE;                  /* warm cream bg      */
-  --dn2: #FFE0B8;                  /* peach bg mid       */
-  --dg:  #FF3737;                  /* vibrant red        */
-  --dg2: #FF8383;                  /* soft coral         */
-  --dpeach: #FFC193;               /* warm peach         */
-  --dc:  #2a1810;                  /* dark warm brown    */
-  --dm:  rgba(42, 24, 16, 0.55);   /* muted text         */
-  --dw:  #1a1008;                  /* near black         */
+  --dn:    #EDE6D2;                  /* parchment — pulled from image bg   */
+  --dn2:   #E2D9C4;                  /* deeper parchment                   */
+  --dg:    #C8602A;                  /* warm terracotta — image warm tones  */
+  --dg2:   #E8987A;                  /* soft rose-peach                     */
+  --dpeach: #D9C4A8;                 /* muted linen — footer bg             */
+  --dc:    #2C1E12;                  /* deep brown — readable on parchment  */
+  --dm:    rgba(44, 30, 18, 0.75);   /* muted body text                     */
+  --dw:    #1a1008;                  /* near black                          */
 
   width: 1200px;
   height: 1500px;
-  background: var(--dn);
+  background-image:
+    linear-gradient(rgba(237, 230, 210, 0.82), rgba(226, 217, 196, 0.82)),
+    url('../../../assets/dadly-background.png');
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-color: var(--dn);
   color: var(--dc);
   position: relative;
   overflow: hidden;
@@ -57,7 +63,7 @@
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: rgba(42, 24, 16, 0.2);
+  background: rgba(44, 30, 18, 0.18);
 }
 
 .dadlyDot.active {
@@ -113,7 +119,7 @@
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgba(42, 24, 16, 0.3);
+  color: rgba(44, 30, 18, 0.28);
 }
 
 /* ── Lesson Slide ──────────────────────────────────────────── */
@@ -178,7 +184,7 @@
   font-size: 220px;
   font-weight: 900;
   letter-spacing: -8px;
-  color: rgba(255, 55, 55, 0.06);
+  color: rgba(200, 96, 42, 0.07);
   line-height: 1;
   pointer-events: none;
 }
